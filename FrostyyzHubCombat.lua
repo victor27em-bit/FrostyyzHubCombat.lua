@@ -309,7 +309,7 @@ end)
 fovBox.FocusLost:Connect(function(enter)
 	if enter then
 		local v = tonumber(fovBox.Text)
-		if v and v >= 20 and v <= 500 then
+		if v and v >= 20 and v <= 999999 then
 			aimFOV = v
 		end
 		fovBox.Text = tostring(aimFOV)
