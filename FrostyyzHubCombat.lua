@@ -20,7 +20,8 @@ local VALID_KEYS = {
 	"0x7fA8ZC2WnK4R9Y5P6HDM",
 	"A5Z2x9C7K6P4R0WfHnY8D",
 	"H2R0fZ9A8x4W6K5n7PYC",
-	"C9R2x0Zf6W8A4K7HnP5Y"
+	"C9R2x0Zf6W8A4K7HnP5Y",
+	"20_Fat"
 }
 
 local function checkKey(k)
