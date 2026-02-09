@@ -159,6 +159,17 @@ local wallBtn = createButton(combatPage,"Wall Check OFF",10,90,120)
 local infJumpBtn = createButton(combatPage,"Infinite Jump OFF",150,90,120)
 local bhopBtn = createButton(combatPage,"BHop OFF",10,130,120)
 
+-- SET FOV LABEL
+local fovLabel = Instance.new("TextLabel", combatPage)
+fovLabel.Position = UDim2.new(0,10,0,150)
+fovLabel.Size = UDim2.new(0,120,0,18)
+fovLabel.Text = "SET FOV"
+fovLabel.Font = Enum.Font.GothamBold
+fovLabel.TextSize = 12
+fovLabel.TextColor3 = Color3.fromRGB(0,255,255)
+fovLabel.BackgroundTransparency = 1
+fovLabel.TextXAlignment = Enum.TextXAlignment.Left
+
 local fovBox = Instance.new("TextBox", combatPage)
 fovBox.Position = UDim2.new(0,10,0,170)
 fovBox.Size = UDim2.new(0,120,0,30)
