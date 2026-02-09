@@ -103,6 +103,8 @@ local espObjects = {}
 local guiVisible = true
 local infiniteJumpOn, bhopOn = false, false
 local spaceDown = false
+local silentLikeAim = false
+local silentStrength = 1
 
 -- BHop leve (1.14x)
 local bhopSpeedMultiplier = 1.14
@@ -275,6 +277,12 @@ smoothBtn.MouseButton1Click:Connect(function()
 	if aimSmoothness > 10 then aimSmoothness = 0 end
 	smoothBtn.Text = "Smooth: "..aimSmoothness
 end)
+local silentBtn = createButton(combatPage,"Silent-like OFF",150,130,120)
+
+silentBtn.MouseButton1Click:Connect(function()
+	silentLikeAim = not silentLikeAim
+	silentBtn.Text = silentLikeAim and "Silent-like ON" or "Silent-like OFF"
+end)
 
 espBtn.MouseButton1Click:Connect(function()
 	espOn = not espOn
@@ -337,7 +345,7 @@ UIS.InputEnded:Connect(function(input)
 end)
 
 --==============================
--- LOOP COMBAT + BHOP + ESP + AIM
+-- LOOP COMBAT + BHOP + ESP + AIM + SILENT-LIKE AIM 
 --==============================
 RunService.RenderStepped:Connect(function()
 	-- FOV Circle
@@ -355,6 +363,19 @@ RunService.RenderStepped:Connect(function()
 	else
 		clearESP()
 	end
+
+-- SILENT-LIKE AIM 
+if silentLikeAim then
+	local target = getClosestTarget()
+	if target and target.Character and target.Character:FindFirstChild(aimTarget) then
+		local part = target.Character[aimTarget]
+		local camCF = Camera.CFrame
+		local targetCF = CFrame.new(camCF.Position, part.Position)
+
+		-- micro ajuste invisível
+		Camera.CFrame = camCF:Lerp(targetCF, silentStrength)
+	end
+end
 
 	-- AIM
 	if aimOn and UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
