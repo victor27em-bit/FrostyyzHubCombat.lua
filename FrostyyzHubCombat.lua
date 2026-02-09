@@ -106,6 +106,14 @@ local spaceDown = false
 local silentLikeAim = false
 local silentStrength = 1
 
+--==============================
+-- SPEED CONFIG
+--==============================
+local speedOn = false
+local speedValue = 16 -- velocidade normal (1x)
+local minSpeed = 8
+local maxSpeed = 200
+
 -- BHop leve (1.14x)
 local bhopSpeedMultiplier = 1.14
 
@@ -158,6 +166,9 @@ local teamBtn = createButton(combatPage,"Team Check ON",150,50,120)
 local wallBtn = createButton(combatPage,"Wall Check OFF",10,90,120)
 local infJumpBtn = createButton(combatPage,"Infinite Jump OFF",150,90,120)
 local bhopBtn = createButton(combatPage,"BHop OFF",10,130,120)
+local speedBtn = createButton(combatPage,"Speed OFF",290,10,120)
+local speedPlus = createButton(combatPage,"Speed +",290,50,120)
+local speedMinus = createButton(combatPage,"Speed -",290,90,120)
 
 -- SET FOV LABEL
 local fovLabel = Instance.new("TextLabel", combatPage)
@@ -293,6 +304,34 @@ local silentBtn = createButton(combatPage,"Silent-like OFF",150,130,120)
 silentBtn.MouseButton1Click:Connect(function()
 	silentLikeAim = not silentLikeAim
 	silentBtn.Text = silentLikeAim and "Silent-like ON" or "Silent-like OFF"
+end)
+
+speedBtn.MouseButton1Click:Connect(function()
+	speedOn = not speedOn
+	speedBtn.Text = speedOn and ("Speed ON ["..speedValue.."]") or "Speed OFF"
+
+	local char = LocalPlayer.Character
+	if char and char:FindFirstChild("Humanoid") then
+		char.Humanoid.WalkSpeed = speedOn and speedValue or 16
+	end
+end)
+
+speedPlus.MouseButton1Click:Connect(function()
+	speedValue = math.clamp(speedValue + 5, minSpeed, maxSpeed)
+	speedBtn.Text = speedOn and ("Speed ON ["..speedValue.."]") or "Speed OFF"
+
+	if speedOn and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+		LocalPlayer.Character.Humanoid.WalkSpeed = speedValue
+	end
+end)
+
+speedMinus.MouseButton1Click:Connect(function()
+	speedValue = math.clamp(speedValue - 5, minSpeed, maxSpeed)
+	speedBtn.Text = speedOn and ("Speed ON ["..speedValue.."]") or "Speed OFF"
+
+	if speedOn and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+		LocalPlayer.Character.Humanoid.WalkSpeed = speedValue
+	end
 end)
 
 espBtn.MouseButton1Click:Connect(function()
