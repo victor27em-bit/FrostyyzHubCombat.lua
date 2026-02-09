@@ -398,6 +398,19 @@ end
 			Camera.CFrame = aimSmoothness == 0 and look or cf:Lerp(look, aimSmoothness/10)
 		end
 	end
+		
+--==============================
+-- INFINITE JUMP (FIX REAL - SEM MEXER NO RESTO)
+--==============================
+UIS.InputBegan:Connect(function(input, gpe)
+	if gpe then return end
+	if input.KeyCode == Enum.KeyCode.Space and infiniteJumpOn then
+		local char = LocalPlayer.Character
+		if char and char:FindFirstChild("Humanoid") then
+			char.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end
+end)
 
 	-- BHop + Infinite Jump
 	if (bhopOn or infiniteJumpOn) and spaceDown and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
